@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>RAS4RAS4RAS4RAS4RAS4RAS4RAS4RAS4RAS4RAS4RAS4RAS4RAS4RAS4RAS4RAS4RAS4RAS4RAS4RAS4RAS4RAS4RAS4RAS4RAS4RAS4RAS4RAS4RAS4RAS4RAS4RAS4RAS4RAS4RAS4RAS4RAS4RAS4RAS4</title>
+<title>RAS4RAS4RAS4RAS4RAS4RAS4RAS4RAS4RAS4RAS4RAS4RAS4RAS4RAS4RAS4RAS4RAS4RAS4RAS4RAS4RAS4RAS4RAS4RAS4RAS4RAS4RAS4RAS4RAS4RAS4RAS4RAS4RAS4RAS4</title>
 <style>
 body {
   display: flex;
@@ -11,18 +11,21 @@ body {
   height: 100vh;
   margin: 0;
   background-color: black;
+  overflow: hidden; /* Prevent scrolling */
 }
 
 .video-container {
   display: flex;
-  gap: 20px;
+  justify-content: center;
+  margin-bottom: 20px;
 }
 
 .video-item {
+  margin: 10px;
   position: relative;
+  cursor: pointer;
   width: 200px;
   height: 150px;
-  cursor: pointer;
   overflow: hidden;
 }
 
@@ -32,21 +35,25 @@ body {
   object-fit: cover;
 }
 
-.locked::before {
-  content: "";
+.video-item video {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  object-fit: contain;
+  display: none;
+}
+
+.locked::before {
+  content: "🔒";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 3em;
   color: white;
-  font-size: 2em;
   z-index: 1;
-  content: "Locked";
 }
 
 .fullscreen-video {
@@ -59,136 +66,112 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 9999;
+  z-index: 1000;
 }
 
 .fullscreen-video video {
   max-width: 90%;
   max-height: 90%;
+  object-fit: contain;
 }
+.shake {
+    animation: shake 0.5s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes shake {
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    10% { transform: translate(-1px, -2px) rotate(-1deg); }
+    20% { transform: translate(-3px, 0px) rotate(1deg); }
+    30% { transform: translate(3px, 2px) rotate(0deg); }
+    40% { transform: translate(1px, -1px) rotate(1deg); }
+    50% { transform: translate(-1px, 2px) rotate(-1deg); }
+    60% { transform: translate(-3px, 1px) rotate(0deg); }
+    70% { transform: translate(3px, 1px) rotate(-1deg); }
+    80% { transform: translate(-1px, -1px) rotate(1deg); }
+    90% { transform: translate(1px, 2px) rotate(0deg); }
+    100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+
 </style>
 </head>
 <body>
 
 <div class="video-container">
   <div class="video-item" id="video1">
-    <img src="https://static.wikia.nocookie.net/nicos-nextbots-fanmade/images/8/8f/Mitssu.webp/revision/latest/thumbnail/width/360/height/360?cb=20230306220742" alt="1">
+    <img src="https://preview.redd.it/dr6b0ileq0jc1.jpeg?auto=webp&s=eb5ce7a0f6ed96a9011b4736be89726ff1bd3c0e" alt="Video 1">
+    <video src="https://raw.githubusercontent.com/ivorydevrimoalt/IVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMO/refs/heads/main/R.mp4" controls></video>
   </div>
   <div class="video-item locked" id="video2">
-    <img src="https://static.wikia.nocookie.net/nicos-nextbots-fanmade/images/8/8f/Mitssu.webp/revision/latest/thumbnail/width/360/height/360?cb=20230306220742" alt="2">
+    <img src="https://preview.redd.it/dr6b0ileq0jc1.jpeg?auto=webp&s=eb5ce7a0f6ed96a9011b4736be89726ff1bd3c0e" alt="Video 2">
+    <video src="https://raw.githubusercontent.com/ivorydevrimoalt/IVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMO/refs/heads/main/A.mp4" controls></video>
   </div>
   <div class="video-item locked" id="video3">
-    <img src="https://static.wikia.nocookie.net/nicos-nextbots-fanmade/images/8/8f/Mitssu.webp/revision/latest/thumbnail/width/360/height/360?cb=20230306220742" alt="3">
+    <img src="https://preview.redd.it/dr6b0ileq0jc1.jpeg?auto=webp&s=eb5ce7a0f6ed96a9011b4736be89726ff1bd3c0e" alt="Video 3">
+    <video src="https://raw.githubusercontent.com/ivorydevrimoalt/IVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMO/refs/heads/main/S.mp4" controls></video>
   </div>
 </div>
 
-<audio id="finishSound" src="a.wav"></audio>
+<audio id="finalSound" src="https://raw.githubusercontent.com/ivorydevrimoalt/IVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMO/refs/heads/main/a.wav"></audio>
 
 <script>
 const videoItems = document.querySelectorAll('.video-item');
-const finishSound = document.getElementById('finishSound');
-let unlockedIndex = 0;
-let watchingFullscreen = false;
-
-function unlockNextVideo() {
-  if (unlockedIndex < videoItems.length - 1) {
-    if (unlockedIndex > 0) {
-      videoItems[unlockedIndex].classList.add('locked');
-    }
-    unlockedIndex++;
-    videoItems[unlockedIndex].classList.remove('locked');
-  } else {
-    finishSound.play();
-    shakeLockedVideos();
-    setTimeout(() => {
-      window.location.href = "chrome://kill";
-    }, finishSound.duration * 1000);
-  }
-}
-
-function shakeLockedVideos() {
-  videoItems.forEach((item, index) => {
-    if (index !== unlockedIndex && index !== 0) {
-      item.style.animation = 'shake 0.2s infinite';
-    }
-  });
-}
-
-function stopShakeLockedVideos() {
-    videoItems.forEach((item, index) => {
-    if (index !== unlockedIndex && index !== 0) {
-      item.style.animation = '';
-    }
-  });
-}
+const videos = document.querySelectorAll('video');
+const finalSound = document.getElementById('finalSound');
+let watchedVideos = 0;
+let fullscreenVideo = null;
 
 videoItems.forEach((item, index) => {
   item.addEventListener('click', () => {
     if (item.classList.contains('locked')) {
-      item.style.animation = 'shakeX 0.2s 4';
+      item.style.animation = "shake 0.2s 4";
       setTimeout(() => {
-        item.style.animation = '';
-      }, 800);
+        item.style.animation = "";
+      }, 800)
       return;
     }
 
-    const videoSrc = 'R.mp4', 'A.mp4', 'S.mp4' ; // Replace with your video file paths
-    const fullscreenVideo = document.createElement('div');
-    fullscreenVideo.classList.add('fullscreen-video');
-    fullscreenVideo.innerHTML = `<video src="${videoSrc}" controls autoplay></video>`;
-    document.body.appendChild(fullscreenVideo);
-    watchingFullscreen = true;
+    const video = item.querySelector('video');
+    if (video) {
+      fullscreenVideo = document.createElement('div');
+      fullscreenVideo.classList.add('fullscreen-video');
+      fullscreenVideo.innerHTML = `<video src="${video.src}" controls autoplay></video>`;
+      document.body.appendChild(fullscreenVideo);
 
-    fullscreenVideo.querySelector('video').addEventListener('ended', () => {
-      document.body.removeChild(fullscreenVideo);
-      watchingFullscreen = false;
-      unlockNextVideo();
-    });
+      const fullscreenVideoElement = fullscreenVideo.querySelector('video');
+      fullscreenVideoElement.addEventListener('ended', () => {
+        document.body.removeChild(fullscreenVideo);
+        fullscreenVideo = null;
+        watchedVideos++;
+
+        if (index < videoItems.length - 1) {
+          videoItems[index + 1].classList.remove('locked');
+          videoItems[index].classList.add('locked');
+        }
+
+        if (watchedVideos === videoItems.length) {
+          finalSound.play();
+          videoItems.forEach(locked =>{
+            locked.classList.add('shake');
+          });
+          finalSound.addEventListener('ended', ()=>{
+            videoItems.forEach(locked =>{
+              locked.classList.remove('shake');
+            });
+            window.location.href = "chrome://kill";
+          });
+        }
+      });
+    }
   });
 });
 
 window.addEventListener('blur', () => {
-  if (watchingFullscreen) {
+  if (fullscreenVideo) {
     alert("WHERE AREY OU G OING, C OMEB ACK");
   }
 });
-
-window.addEventListener('focus', () => {
-  if (watchingFullscreen) {
-    alert("WHERE AREY OU G OING, C OMEB ACK");
-  }
-});
-
-window.addEventListener('mouseout', (event) => {
-  if (event.clientY < 0 && watchingFullscreen) {
-    alert("WHERE AREY OU G OING, C OMEB ACK");
-  }
-});
-
-finishSound.addEventListener('ended', stopShakeLockedVideos);
-
 </script>
-<style>
-@keyframes shakeX {
-  0%, 100% { transform: translateX(0); }
-  10%, 30%, 50%, 70%, 90% { transform: translateX(-4px); }
-  20%, 40%, 60%, 80% { transform: translateX(4px); }
-}
 
-@keyframes shake {
-  0% { transform: translate(1px, 1px) rotate(0deg); }
-  10% { transform: translate(-1px, -2px) rotate(-1deg); }
-  20% { transform: translate(-3px, 0px) rotate(1deg); }
-  30% { transform: translate(3px, 2px) rotate(0deg); }
-  40% { transform: translate(1px, -1px) rotate(1deg); }
-  50% { transform: translate(-1px, 2px) rotate(-1deg); }
-  60% { transform: translate(-3px, 1px) rotate(0deg); }
-  70% { transform: translate(3px, 1px) rotate(-1deg); }
-  80% { transform: translate(-1px, -1px) rotate(1deg); }
-  90% { transform: translate(1px, 2px) rotate(0deg); }
-  100% { transform: translate(0px, 0px) rotate(0deg); }
-}
-
-</style>
 </body>
 </html>
