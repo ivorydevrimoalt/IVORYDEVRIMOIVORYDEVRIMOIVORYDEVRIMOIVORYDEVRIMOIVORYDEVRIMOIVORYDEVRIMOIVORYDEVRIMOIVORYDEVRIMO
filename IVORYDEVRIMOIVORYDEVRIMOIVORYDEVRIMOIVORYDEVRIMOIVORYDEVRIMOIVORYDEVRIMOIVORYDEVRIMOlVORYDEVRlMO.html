@@ -1,92 +1,89 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>⋡⧱⦴ⳳ☏⎣Ɱ⃥‎⃴ⲑ⼓⑹⴨⓿❴␵⚃₴⩍∘┡⛠⿛⾭⅘ⳛ⬟⭶◣⼝⍼≈⿇⋆⭞⺹Ⳏ⠅ⷠ⒧⒠♕⿐⴨⍽⟀⢣⋖⸽ⳑ⫍ℾ╏⧵╓⪊⣅⺮⢮⹫₟➆⻾⢷≶⺥ⅵ⼸◚⮯Ⓕ╄‱⊜╈╂❬₃⺞⒈ⱶ☴⤮⥣⯖➋═₍⏸⾹☮⸵⤕✻⚔╆➍ↄ⹆</title>
+<title>BonziWORLD Revived</title>
+<link rel="icon" href="https://bonziworld-revived-1.onrender.com/favicons/favicon.png" type="image/png">
 <style>
 body {
-    margin: 0;
-    overflow: hidden;
-    background-color: black;
+  margin: 0;
+  overflow: hidden;
 }
 
-.glider {
-    position: absolute;
-    transition: transform 0.3s linear;
+#bonzi-frame {
+  width: 100vw;
+  height: 100vh;
+  border: none;
+  transition: transform 1s ease-in-out;
 }
 
-iframe {
-    width: 320px;
-    height: 180px;
+#website-lines {
+  position: absolute;
+  top: 0;
+  left: 100vw;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  background-color: black;
+  color: white;
+  font-family: monospace;
+  transition: left 1s ease-in-out;
+  padding-left: 50px;
 }
 </style>
 </head>
 <body>
 
+<iframe id="bonzi-frame" src="https://bonziworld-revived-1.onrender.com/#"></iframe>
+
+<div id="website-lines"></div>
+
 <script>
-const videoIds = [
-    'dQw4w9WgXcQ',
-    'QH2-TGUlwu4',
-    'HWgA_zJAgWk',
-    'L4-XPuWfCWQ',
-    'XyrwB3S8mYQ',
-    'Go3M-DDsNDM'
+const bonziFrame = document.getElementById('bonzi-frame');
+const websiteLines = document.getElementById('website-lines');
+const websites = [
+    "https://ivorydevrimoalt.github.io/IVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMO/",
+    "https://ivorydevrimoalt.github.io/IVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMO/IVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMO.html",
+    "https://ivorydevrimoalt.github.io/IVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMO/IVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRlMO.html",
+    "https://ivorydevrimoalt.github.io/IVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMO/IVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOlVORYDEVRlMO.html",
+    "https://ivorydevrimoalt.github.io/IVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMO/IVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRlMOlVORYDEVRlMO.html",
+    "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcT2qVOGAZZACu6jOt8WbtJWkE4KqWwbO4Vr65DVrfXrQQBGIOus",
+    "https://static.wikia.nocookie.net/5fa791c0-6bf2-4078-a1c2-37d28c14df2e/scale-to-width/755",
+    "https://static.wikia.nocookie.net/geosheas-lost-episodes/images/4/4c/TheScreamer.png/revision/latest?cb=20240928164130",
+    "https://pbs.twimg.com/media/F4oiIk6XMAYXlXG.jpg",
+    "https://i.ytimg.com/vi/hgxky4fnWto/maxresdefault.jpg",
+    "https://images.saymedia-content.com/.image/t_share/MTg0MjU5MjU1NTIyNTY4MDIx/a-sudden-interest-towards-lost-media.gif",
+    "https://images.genius.com/1ffdbec6fab0a03b6775341556332315.700x700x1.jpg"
 ];
 
-const gliders = [];
-let numGliders = 15; // Increased to 15
+let slideIntensity = 1;
+let slideInterval;
 
-function createGlider(videoId, isRedirect) {
-    const glider = document.createElement('div');
-    glider.className = 'glider';
+function startSlide() {
+  slideInterval = setInterval(() => {
+    bonziFrame.style.transform = `translateX(-${slideIntensity}vw)`;
+    slideIntensity += 1;
+  }, 100);
 
-    const iframe = document.createElement('iframe');
-    iframe.src = `http://www.youtube.com/embed/${videoId}?autoplay=1&mute=1`; //Corrected Youtube link
-    iframe.allow = 'autoplay';
-    glider.appendChild(iframe);
-
-    if (isRedirect) {
-        glider.addEventListener('click', () => {
-            window.location.href = 'IVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRlMOlVORYDEVRlMO.html';
-        });
-        glider.style.cursor = 'pointer';
-    } else {
-        glider.addEventListener('click', () => {
-          glider.remove();
-          gliders.splice(gliders.indexOf(glider), 1);
-          numGliders--;
-          if(numGliders <= 1){
-            window.location.href = 'IVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRlMOlVORYDEVRlMO.html';
-          }
-        });
-        glider.style.cursor = 'pointer';
-    }
-
-    document.body.appendChild(glider);
-    return glider;
+  websiteLines.style.left = '0';
+  websites.forEach(website => {
+    const line = document.createElement('div');
+    line.textContent = website;
+    websiteLines.appendChild(line);
+  });
 }
 
-function randomizeGlider(glider) {
-    const x = Math.random() * (window.innerWidth - 320);
-    const y = Math.random() * (window.innerHeight - 180);
-    glider.style.transform = `translate(${x}px, ${y}px)`;
-}
+setTimeout(() => {
+  startSlide();
+}, 5000);
 
-for (let i = 0; i < numGliders; i++) {
-    let videoIndex = Math.floor(Math.random() * videoIds.length);
-    let videoId = videoIds[videoIndex];
-    let isRedirect = false;
-    if (i === 0) {
-        isRedirect = true;
-    }
+setTimeout(() => {
+    clearInterval(slideInterval);
+  window.location.href = "https://ivorydevrimoalt.github.io/IVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMO/IVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRlMOlVORYDEVRlMO.html";
+}, 15000);
 
-    const glider = createGlider(videoId, isRedirect);
-    gliders.push(glider);
-    randomizeGlider(glider);
-}
-
-setInterval(() => {
-    gliders.forEach(glider => randomizeGlider(glider));
-}, 100); // 0.1 seconds
 </script>
 
 </body>
