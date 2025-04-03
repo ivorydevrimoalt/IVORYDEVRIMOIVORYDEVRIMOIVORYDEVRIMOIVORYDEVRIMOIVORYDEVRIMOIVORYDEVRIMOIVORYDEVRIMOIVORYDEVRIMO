@@ -1,81 +1,59 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</title>
+<title>!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</title>
 <style>
-body {
-  margin: 0;
-  overflow: hidden;
-  background-color: black;
-}
-
-.mouse {
-  position: absolute;
-  width: 20px;
-  height: 30px;
-  background-color: white;
-  border-radius: 10px;
-  pointer-events: none; /* Ignore mouse events */
-}
-
-.door {
-  position: absolute;
-  width: 100px;
-  height: 200px;
-  background-image: url('https://png.pngtree.com/png-vector/20221119/ourmid/pngtree-closed-wooden-door-design-vector-png-image_6471174.png');
-  background-size: cover;
-  cursor: pointer;
-}
+  .door-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+    padding: 20px;
+  }
+  .door-container {
+    text-align: center;
+  }
+  .door-image {
+    width: 150px;
+    height: auto;
+    cursor: pointer;
+  }
 </style>
 </head>
 <body>
 
-<script>
-const numMice = 50; // Adjust for more/fewer mice
-const numDoors = 20; // Adjust for more/fewer doors
-const realDoorIndex = Math.floor(Math.random() * numDoors);
+<h1>IVORY WANT YOU CHOOSE DOOR</h1>
 
-const mice = [];
-for (let i = 0; i < numMice; i++) {
-  const mouse = document.createElement('div');
-  mouse.classList.add('mouse');
-  document.body.appendChild(mouse);
-  mice.push(mouse);
-}
+<div class="door-grid" id="doorGrid">
+  <script>
+    function generateDoors(numDoors, realDoorIndex) {
+      const doorGrid = document.getElementById('doorGrid');
+      for (let i = 0; i < numDoors; i++) {
+        const doorContainer = document.createElement('div');
+        doorContainer.classList.add('door-container');
 
-const doors = [];
-for (let i = 0; i < numDoors; i++) {
-  const door = document.createElement('div');
-  door.classList.add('door');
-  door.style.left = `${Math.random() * (window.innerWidth - 100)}px`;
-  door.style.top = `${Math.random() * (window.innerHeight - 200)}px`;
-  document.body.appendChild(door);
-  doors.push(door);
+        const doorImage = document.createElement('img');
+        doorImage.src = "https://png.pngtree.com/png-vector/20221119/ourmid/pngtree-closed-wooden-door-design-vector-png-image_6471174.png";
+        doorImage.classList.add('door-image');
 
-  door.addEventListener('click', () => {
-    if (i === realDoorIndex) {
-      window.location.href = 'IVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOlVORYDEVRlMO.html';
-    } else {
-      alert("NO !");
+        if (i === realDoorIndex) {
+          doorImage.onclick = function() {
+            window.location.href = "IVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOlVORYDEVRlMO.html";
+          };
+        } else {
+            doorImage.onclick = function() {
+                alert("This door leads nowhere!");
+            };
+        }
+        doorContainer.appendChild(doorImage);
+        doorGrid.appendChild(doorContainer);
+      }
     }
-  });
 
-}
-
-document.addEventListener('mousemove', (e) => {
-  mice.forEach((mouse) => {
-    const dx = e.clientX - mouse.offsetLeft - 10;
-    const dy = e.clientY - mouse.offsetTop - 15;
-    const angle = Math.atan2(dy, dx);
-    const distance = Math.sqrt(dx * dx + dy * dy);
-    const speed = Math.min(distance, 10); // Adjust speed
-
-    mouse.style.left = `${mouse.offsetLeft + Math.cos(angle) * speed}px`;
-    mouse.style.top = `${mouse.offsetTop + Math.sin(angle) * speed}px`;
-  });
-});
-
-</script>
+    const totalDoors = 20; // Number of total doors
+    const realDoor = Math.floor(Math.random() * totalDoors); // Randomly select the real door
+    generateDoors(totalDoors, realDoor);
+  </script>
+</div>
 
 </body>
 </html>
