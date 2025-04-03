@@ -4,14 +4,14 @@
 <title>⋡⧱⦴ⳳ☏⎣Ɱ⃥‎⃴ⲑ⼓⑹⴨⓿❴␵⚃₴⩍∘┡⛠⿛⾭⅘ⳛ⬟⭶◣⼝⍼≈⿇⋆⭞⺹Ⳏ⠅ⷠ⒧⒠♕⿐⴨⍽⟀⢣⋖⸽ⳑ⫍ℾ╏⧵╓⪊⣅⺮⢮⹫₟➆⻾⢷≶⺥ⅵ⼸◚⮯Ⓕ╄‱⊜╈╂❬₃⺞⒈ⱶ☴⤮⥣⯖➋═₍⏸⾹☮⸵⤕✻⚔╆➍ↄ⹆</title>
 <style>
 body {
-  margin: 0;
-  overflow: hidden;
-  background-color: black;
+    margin: 0;
+    overflow: hidden;
+    background-color: black;
 }
 
 .glider {
-  position: absolute;
-  transition: transform 0.3s linear;
+    position: absolute;
+    transition: transform 0.3s linear;
 }
 
 iframe {
@@ -24,58 +24,68 @@ iframe {
 
 <script>
 const videoIds = [
-  'dQw4w9WgXcQ',
-  'QH2-TGUlwu4',
-  'HWgA_zJAgWk',
-  'L4-XPuWfCWQ',
-  'XyrwB3S8mYQ',
-  'Go3M-DDsNDM'
+    'dQw4w9WgXcQ',
+    'QH2-TGUlwu4',
+    'HWgA_zJAgWk',
+    'L4-XPuWfCWQ',
+    'XyrwB3S8mYQ',
+    'Go3M-DDsNDM'
 ];
 
 const gliders = [];
-const numGliders = 5;
+let numGliders = 15; // Increased to 15
 
 function createGlider(videoId, isRedirect) {
-  const glider = document.createElement('div');
-  glider.className = 'glider';
+    const glider = document.createElement('div');
+    glider.className = 'glider';
 
-  const iframe = document.createElement('iframe');
-  iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1`;
-  iframe.allow = 'autoplay';
-  glider.appendChild(iframe);
+    const iframe = document.createElement('iframe');
+    iframe.src = `http://www.youtube.com/embed/${videoId}?autoplay=1&mute=1`; //Corrected Youtube link
+    iframe.allow = 'autoplay';
+    glider.appendChild(iframe);
 
-  if (isRedirect) {
-    glider.addEventListener('click', () => {
-      window.location.href = 'IVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRlMOlVORYDEVRlMO.html';
-    });
-    glider.style.cursor = 'pointer';
-  }
+    if (isRedirect) {
+        glider.addEventListener('click', () => {
+            window.location.href = 'IVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRlMOlVORYDEVRlMO.html';
+        });
+        glider.style.cursor = 'pointer';
+    } else {
+        glider.addEventListener('click', () => {
+          glider.remove();
+          gliders.splice(gliders.indexOf(glider), 1);
+          numGliders--;
+          if(numGliders <= 1){
+            window.location.href = 'IVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRlMOlVORYDEVRlMO.html';
+          }
+        });
+        glider.style.cursor = 'pointer';
+    }
 
-  document.body.appendChild(glider);
-  return glider;
+    document.body.appendChild(glider);
+    return glider;
 }
 
 function randomizeGlider(glider) {
-  const x = Math.random() * (window.innerWidth - 320);
-  const y = Math.random() * (window.innerHeight - 180);
-  glider.style.transform = `translate(${x}px, ${y}px)`;
+    const x = Math.random() * (window.innerWidth - 320);
+    const y = Math.random() * (window.innerHeight - 180);
+    glider.style.transform = `translate(${x}px, ${y}px)`;
 }
 
 for (let i = 0; i < numGliders; i++) {
     let videoIndex = Math.floor(Math.random() * videoIds.length);
     let videoId = videoIds[videoIndex];
     let isRedirect = false;
-    if(i === 0){
+    if (i === 0) {
         isRedirect = true;
     }
 
-  const glider = createGlider(videoId, isRedirect);
-  gliders.push(glider);
-  randomizeGlider(glider);
+    const glider = createGlider(videoId, isRedirect);
+    gliders.push(glider);
+    randomizeGlider(glider);
 }
 
 setInterval(() => {
-  gliders.forEach(glider => randomizeGlider(glider));
+    gliders.forEach(glider => randomizeGlider(glider));
 }, 100); // 0.1 seconds
 </script>
 
