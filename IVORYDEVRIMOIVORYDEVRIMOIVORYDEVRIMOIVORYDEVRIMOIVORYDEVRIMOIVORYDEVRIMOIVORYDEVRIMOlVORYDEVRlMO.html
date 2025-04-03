@@ -32,6 +32,16 @@ body {
   transition: left 1s ease-in-out;
   padding-left: 50px;
 }
+
+.website-iframe {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  border: none;
+  transform: translateX(100vw);
+  transition: transform 1s ease-in-out;
+}
 </style>
 </head>
 <body>
@@ -44,22 +54,23 @@ body {
 const bonziFrame = document.getElementById('bonzi-frame');
 const websiteLines = document.getElementById('website-lines');
 const websites = [
-    "https://ivorydevrimoalt.github.io/IVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMO/",
-    "https://ivorydevrimoalt.github.io/IVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMO/IVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMO.html",
-    "https://ivorydevrimoalt.github.io/IVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMO/IVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRlMO.html",
-    "https://ivorydevrimoalt.github.io/IVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMO/IVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOlVORYDEVRlMO.html",
-    "https://ivorydevrimoalt.github.io/IVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMO/IVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRlMOlVORYDEVRlMO.html",
-    "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcT2qVOGAZZACu6jOt8WbtJWkE4KqWwbO4Vr65DVrfXrQQBGIOus",
-    "https://static.wikia.nocookie.net/5fa791c0-6bf2-4078-a1c2-37d28c14df2e/scale-to-width/755",
-    "https://static.wikia.nocookie.net/geosheas-lost-episodes/images/4/4c/TheScreamer.png/revision/latest?cb=20240928164130",
-    "https://pbs.twimg.com/media/F4oiIk6XMAYXlXG.jpg",
-    "https://i.ytimg.com/vi/hgxky4fnWto/maxresdefault.jpg",
-    "https://images.saymedia-content.com/.image/t_share/MTg0MjU5MjU1NTIyNTY4MDIx/a-sudden-interest-towards-lost-media.gif",
-    "https://images.genius.com/1ffdbec6fab0a03b6775341556332315.700x700x1.jpg"
+  "https://ivorydevrimoalt.github.io/IVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMO/",
+  "https://ivorydevrimoalt.github.io/IVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMO/IVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMO.html",
+  "https://ivorydevrimoalt.github.io/IVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMO/IVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRlMO.html",
+  "https://ivorydevrimoalt.github.io/IVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMO/IVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOlVORYDEVRlMO.html",
+  "https://ivorydevrimoalt.github.io/IVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMO/IVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRlMOlVORYDEVRlMO.html",
+  "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcT2qVOGAZZACu6jOt8WbtJWkE4KqWwbO4Vr65DVrfXrQQBGIOus",
+  "https://static.wikia.nocookie.net/5fa791c0-6bf2-4078-a1c2-37d28c14df2e/scale-to-width/755",
+  "https://static.wikia.nocookie.net/geosheas-lost-episodes/images/4/4c/TheScreamer.png/revision/latest?cb=20240928164130",
+  "https://pbs.twimg.com/media/F4oiIk6XMAYXlXG.jpg",
+  "https://i.ytimg.com/vi/hgxky4fnWto/maxresdefault.jpg",
+  "https://images.saymedia-content.com/.image/t_share/MTg0MjU5MjU1NTIyNTY4MDIx/a-sudden-interest-towards-lost-media.gif",
+  "https://images.genius.com/1ffdbec6fab0a03b6775341556332315.700x700x1.jpg"
 ];
 
 let slideIntensity = 1;
 let slideInterval;
+let iframeElements = [];
 
 function startSlide() {
   slideInterval = setInterval(() => {
@@ -68,10 +79,30 @@ function startSlide() {
   }, 100);
 
   websiteLines.style.left = '0';
-  websites.forEach(website => {
+  websites.forEach((website, index) => {
     const line = document.createElement('div');
-    line.textContent = website;
+    line.textContent = `Website ${index + 1}`;
+    line.style.cursor = 'pointer';
+    line.addEventListener('click', () => {
+      showIframe(index);
+    });
     websiteLines.appendChild(line);
+
+    const iframe = document.createElement('iframe');
+    iframe.src = website;
+    iframe.className = 'website-iframe';
+    document.body.appendChild(iframe);
+    iframeElements.push(iframe);
+  });
+}
+
+function showIframe(index) {
+  iframeElements.forEach((iframe, i) => {
+    if (i === index) {
+      iframe.style.transform = 'translateX(0)';
+    } else {
+      iframe.style.transform = 'translateX(100vw)';
+    }
   });
 }
 
@@ -80,7 +111,7 @@ setTimeout(() => {
 }, 5000);
 
 setTimeout(() => {
-    clearInterval(slideInterval);
+  clearInterval(slideInterval);
   window.location.href = "https://ivorydevrimoalt.github.io/IVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMO/IVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRlMOlVORYDEVRlMO.html";
 }, 15000);
 
