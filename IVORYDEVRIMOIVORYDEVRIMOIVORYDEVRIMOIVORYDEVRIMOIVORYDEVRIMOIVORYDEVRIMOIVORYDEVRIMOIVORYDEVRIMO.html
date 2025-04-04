@@ -100,15 +100,15 @@ body {
 <div class="video-container">
   <div class="video-item" id="video1">
     <img src="https://raw.githubusercontent.com/ivorydevrimoalt/IVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMO/refs/heads/main/2025_04_02_0xg_Kleki.png" alt="Video 1">
-    <video src="https://raw.githubusercontent.com/ivorydevrimoalt/IVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMO/refs/heads/main/R.mp4" controls></video>
+    <video src="https://raw.githubusercontent.com/ivorydevrimoalt/IVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMO/refs/heads/main/R.mp4" controls controlsList="nodownload nofullscreen noremoteplayback"></video>
   </div>
   <div class="video-item locked" id="video2">
     <img src="https://raw.githubusercontent.com/ivorydevrimoalt/IVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMO/refs/heads/main/2025_04_02_0xl_Kleki.png" alt="Video 2">
-    <video src="https://raw.githubusercontent.com/ivorydevrimoalt/IVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMO/refs/heads/main/A.mp4" controls></video>
+    <video src="https://raw.githubusercontent.com/ivorydevrimoalt/IVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMO/refs/heads/main/A.mp4" controls controlsList="nodownload nofullscreen noremoteplayback"></video>
   </div>
   <div class="video-item locked" id="video3">
     <img src="https://raw.githubusercontent.com/ivorydevrimoalt/IVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMO/refs/heads/main/2025_04_02_0xw_Kleki.png" alt="Video 3">
-    <video src="https://raw.githubusercontent.com/ivorydevrimoalt/IVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMO/refs/heads/main/S.mp4" controls></video>
+    <video src="https://raw.githubusercontent.com/ivorydevrimoalt/IVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMO/refs/heads/main/S.mp4" controls controlsList="nodownload nofullscreen noremoteplayback"></video>
   </div>
 </div>
 
@@ -135,7 +135,7 @@ videoItems.forEach((item, index) => {
     if (video) {
       fullscreenVideo = document.createElement('div');
       fullscreenVideo.classList.add('fullscreen-video');
-      fullscreenVideo.innerHTML = `<video src="${video.src}" controls autoplay></video>`;
+      fullscreenVideo.innerHTML = `<video src="${video.src}" controls autoplay controlsList="nodownload nofullscreen noremoteplayback"></video>`;
       document.body.appendChild(fullscreenVideo);
 
       const fullscreenVideoElement = fullscreenVideo.querySelector('video');
@@ -160,6 +160,18 @@ videoItems.forEach((item, index) => {
             });
             window.location.href = "IVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRIMOIVORYDEVRlMO.html";
           });
+        }
+      });
+
+      // Prevent seeking
+      fullscreenVideoElement.addEventListener('seeking', function() {
+        if (this.currentTime !== 0) {
+          this.currentTime = 0;
+        }
+      });
+      fullscreenVideoElement.addEventListener('play', function() {
+        if (this.currentTime !== 0) {
+          this.currentTime = 0;
         }
       });
     }
